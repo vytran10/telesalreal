@@ -3,684 +3,795 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telesale BĐS — CRM</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<title>SalePro BĐS — CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #0c0d10;
-  --surface:  #13141a;
-  --surface2: #1a1c24;
-  --surface3: #21242f;
-  --border:   rgba(255,255,255,0.06);
-  --border2:  rgba(255,255,255,0.11);
-  --text1:    #eceef4;
-  --text2:    #8b90a7;
-  --text3:    #4e5268;
-  --accent:   #5b7fff;
-  --accent2:  #3d5fe0;
-  --hot:      #ff5c5c;
-  --hot-bg:   rgba(255,92,92,0.1);
-  --warm:     #f5a623;
-  --warm-bg:  rgba(245,166,35,0.1);
-  --cold:     #4da3ff;
-  --cold-bg:  rgba(77,163,255,0.1);
-  --green:    #2dcc8f;
-  --green-bg: rgba(45,204,143,0.1);
-  --r:        8px;
-  --r-lg:     12px;
+  --bg:       #080a0f;
+  --s1:       #0d1018;
+  --s2:       #121520;
+  --s3:       #181c2a;
+  --b1:       rgba(255,255,255,0.05);
+  --b2:       rgba(255,255,255,0.09);
+  --b3:       rgba(255,255,255,0.14);
+  --t1:       #e8ecf5;
+  --t2:       #7c84a0;
+  --t3:       #3e4460;
+  --accent:   #4f7cff;
+  --a2:       #2d55d4;
+  --hot:      #ff4d6d;
+  --hot-s:    rgba(255,77,109,0.12);
+  --warm:     #ff9f43;
+  --warm-s:   rgba(255,159,67,0.12);
+  --cold:     #48b0ff;
+  --cold-s:   rgba(72,176,255,0.12);
+  --green:    #2ecc8f;
+  --green-s:  rgba(46,204,143,0.12);
+  --purple:   #a78bfa;
+  --r:        10px;
+  --r-lg:     14px;
+  --r-xl:     18px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text1);display:flex;font-size:14px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);display:flex;font-size:14px}
 
 /* ── SIDEBAR ── */
-.sidebar{width:220px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 0}
-.brand{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:16px}
-.brand-name{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--text1)}
-.brand-name span{color:var(--accent)}
-.brand-sub{font-size:11px;color:var(--text3);margin-top:2px;font-family:'DM Mono',monospace}
-.nav-section{padding:0 12px;margin-bottom:4px}
-.nav-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:0 8px;margin-bottom:6px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r);font-size:13px;color:var(--text2);cursor:pointer;transition:all .15s;margin-bottom:2px}
-.nav-item:hover{background:var(--surface2);color:var(--text1)}
-.nav-item.active{background:rgba(91,127,255,0.12);color:var(--accent)}
-.nav-icon{width:16px;height:16px;opacity:.7;flex-shrink:0}
-.nav-item.active .nav-icon{opacity:1}
-.sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)}
-.api-status{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)}
-.api-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
-.api-dot.off{background:var(--hot)}
+.sidebar{width:230px;flex-shrink:0;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;padding:0}
+.brand{padding:22px 20px 20px;border-bottom:1px solid var(--b1)}
+.brand-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--t1)}
+.brand-logo span{color:var(--accent)}
+.brand-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);margin-top:3px;letter-spacing:.06em}
+.nav{padding:14px 10px;flex:1}
+.nav-group{margin-bottom:6px}
+.nav-sect{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;padding:6px 10px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:var(--r);font-size:13px;color:var(--t2);cursor:pointer;transition:all .15s;position:relative}
+.nav-item:hover{background:var(--s2);color:var(--t1)}
+.nav-item.active{background:rgba(79,124,255,0.1);color:var(--accent)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:60%;background:var(--accent);border-radius:2px}
+.ni{width:15px;height:15px;flex-shrink:0;opacity:.6}
+.nav-item.active .ni{opacity:1}
+.nav-badge{margin-left:auto;background:var(--hot);color:#fff;font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.sidebar-foot{padding:14px 16px;border-top:1px solid var(--b1)}
+.ai-pill{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:var(--r);background:var(--s2);border:1px solid var(--b1)}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--hot);flex-shrink:0;transition:background .3s}
+.ai-dot.on{background:var(--green);box-shadow:0 0 6px var(--green)}
+.ai-txt{font-size:11px;color:var(--t2);font-family:'JetBrains Mono',monospace}
 
 /* ── MAIN ── */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 24px;flex-shrink:0;background:var(--surface)}
-.topbar-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;flex:1}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.topbar{height:58px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px;padding:0 24px;flex-shrink:0;background:var(--s1)}
+.page-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;flex:1;letter-spacing:-.2px}
 .search-wrap{position:relative}
-.search-wrap input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:7px 12px 7px 34px;font-size:13px;color:var(--text1);outline:none;width:220px;font-family:'DM Sans',sans-serif;transition:border-color .15s}
-.search-wrap input:focus{border-color:var(--accent)}
-.search-wrap input::placeholder{color:var(--text3)}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
-.btn{background:var(--accent);color:#fff;border:none;border-radius:var(--r);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:6px}
-.btn:hover{background:var(--accent2)}
-.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2);border-radius:var(--r);padding:7px 14px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-.btn-ghost:hover{border-color:var(--border2);color:var(--text1);background:var(--surface2)}
-.btn-sm{padding:5px 12px;font-size:12px}
-.btn-danger{background:var(--hot-bg);color:var(--hot);border:none;border-radius:var(--r);padding:6px 12px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-.btn-danger:hover{background:rgba(255,92,92,0.2)}
-
+.search-input{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:8px 12px 8px 34px;font-size:13px;color:var(--t1);outline:none;width:230px;font-family:'Outfit',sans-serif;transition:border-color .15s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--t3)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px}
 .content{flex:1;overflow-y:auto;padding:24px}
 
-/* ── DASHBOARD ── */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px}
-.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-.stat-num{font-family:'Sora',sans-serif;font-size:26px;font-weight:700}
-.stat-sub{font-size:12px;color:var(--text3);margin-top:4px}
-.stat-hot .stat-num{color:var(--hot)}
-.stat-warm .stat-num{color:var(--warm)}
-.stat-cold .stat-num{color:var(--cold)}
-.stat-total .stat-num{color:var(--accent)}
+/* ── BUTTONS ── */
+.btn{background:var(--accent);color:#fff;border:none;border-radius:var(--r);padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:var(--a2);transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid var(--b2);color:var(--t2);border-radius:var(--r);padding:8px 16px;font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s}
+.btn-ghost:hover{border-color:var(--b3);color:var(--t1);background:var(--s2)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-danger{background:var(--hot-s);color:var(--hot);border:1px solid rgba(255,77,109,.2);border-radius:var(--r);padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s}
+.btn-danger:hover{background:rgba(255,77,109,.2)}
+.btn-icon{background:var(--s2);border:1px solid var(--b1);color:var(--t2);border-radius:var(--r);padding:8px 10px;font-size:13px;cursor:pointer;transition:all .15s}
+.btn-icon:hover{background:var(--s3);color:var(--t1)}
 
-/* ── FILTER BAR ── */
-.filter-bar{display:flex;gap:8px;margin-bottom:16px;align-items:center}
-.filter-chip{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;font-size:12px;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
-.filter-chip:hover{border-color:var(--border2);color:var(--text1)}
-.filter-chip.active{background:rgba(91,127,255,0.12);border-color:var(--accent);color:var(--accent)}
-.filter-chip.hot.active{background:var(--hot-bg);border-color:var(--hot);color:var(--hot)}
-.filter-chip.warm.active{background:var(--warm-bg);border-color:var(--warm);color:var(--warm)}
-.filter-chip.cold.active{background:var(--cold-bg);border-color:var(--cold);color:var(--cold)}
-.filter-right{margin-left:auto;display:flex;gap:8px}
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:22px}
+.stat{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-lg);padding:16px 18px;transition:border-color .15s;cursor:default}
+.stat:hover{border-color:var(--b2)}
+.stat-lbl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:10px}
+.stat-val{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500}
+.stat-sub{font-size:11px;color:var(--t3);margin-top:4px}
+.c-total .stat-val{color:var(--accent)}
+.c-hot   .stat-val{color:var(--hot)}
+.c-warm  .stat-val{color:var(--warm)}
+.c-cold  .stat-val{color:var(--cold)}
+.c-proj  .stat-val{color:var(--purple)}
+
+/* ── FILTER ── */
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.fchip{padding:6px 14px;border-radius:20px;border:1px solid var(--b1);background:transparent;font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
+.fchip:hover{border-color:var(--b2);color:var(--t1)}
+.fchip.act{border-color:var(--accent);background:rgba(79,124,255,.1);color:var(--accent)}
+.fchip.hot.act{border-color:var(--hot);background:var(--hot-s);color:var(--hot)}
+.fchip.warm.act{border-color:var(--warm);background:var(--warm-s);color:var(--warm)}
+.fchip.cold.act{border-color:var(--cold);background:var(--cold-s);color:var(--cold)}
+.filter-right{margin-left:auto;display:flex;gap:7px}
 
 /* ── TABLE ── */
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.tbl-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-xl);overflow:hidden}
 table{width:100%;border-collapse:collapse}
-thead th{padding:11px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);background:var(--surface2)}
-tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+thead th{padding:11px 16px;text-align:left;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.09em;border-bottom:1px solid var(--b1);background:var(--s2);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--b1);cursor:pointer;transition:background .12s}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--surface2)}
-tbody td{padding:12px 16px;font-size:13px;color:var(--text2)}
-tbody td.name{color:var(--text1);font-weight:500}
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.badge-hot{background:var(--hot-bg);color:var(--hot)}
-.badge-warm{background:var(--warm-bg);color:var(--warm)}
-.badge-cold{background:var(--cold-bg);color:var(--cold)}
-.badge-done{background:var(--green-bg);color:var(--green)}
-.due-today{color:var(--warm);font-weight:500}
-.overdue{color:var(--hot);font-weight:500}
+tbody tr:hover{background:var(--s2)}
+td{padding:12px 16px;font-size:13px;color:var(--t2);vertical-align:middle}
+td.name{color:var(--t1);font-weight:500}
+td.phone{font-family:'JetBrains Mono',monospace;font-size:12px}
 
-/* ── EMPTY STATE ── */
-.empty{text-align:center;padding:60px 20px;color:var(--text3)}
-.empty-icon{font-size:36px;margin-bottom:12px}
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-hot{background:var(--hot-s);color:var(--hot)}
+.b-warm{background:var(--warm-s);color:var(--warm)}
+.b-cold{background:var(--cold-s);color:var(--cold)}
+.b-done{background:var(--green-s);color:var(--green)}
+.b-proj{background:rgba(167,139,250,.1);color:var(--purple);font-size:10px}
+.overdue{color:var(--hot);font-weight:600}
+.due-today{color:var(--warm);font-weight:600}
 
-/* ── MODAL / DRAWER ── */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:none;align-items:flex-start;justify-content:flex-end}
+/* ── OVERLAY / DRAWER ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:none;align-items:flex-start;justify-content:flex-end;backdrop-filter:blur(2px)}
 .overlay.show{display:flex}
-.drawer{width:520px;height:100vh;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;animation:slideIn .2s ease}
-@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
-.drawer-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
-.drawer-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;flex:1}
-.drawer-body{padding:24px;flex:1}
-.drawer-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+.drawer{width:540px;height:100vh;background:var(--s1);border-left:1px solid var(--b2);overflow-y:auto;display:flex;flex-direction:column;animation:slideIn .22s cubic-bezier(.4,0,.2,1)}
+@keyframes slideIn{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
+.dh{padding:20px 24px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.dh-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;flex:1}
+.db{padding:22px 24px;flex:1}
+.df{padding:16px 24px;border-top:1px solid var(--b1);display:flex;gap:8px;align-items:center;flex-shrink:0}
 
 /* ── FORM ── */
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.form-row.full{grid-template-columns:1fr}
-.form-group{display:flex;flex-direction:column;gap:5px}
-.form-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em}
-.form-input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:13px;color:var(--text1);outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s}
-.form-input:focus{border-color:var(--accent)}
-.form-input::placeholder{color:var(--text3)}
-textarea.form-input{resize:vertical;min-height:72px}
-select.form-input{cursor:pointer}
-select.form-input option{background:var(--surface2)}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em}
+.fi{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);padding:9px 12px;font-size:13px;color:var(--t1);outline:none;font-family:'Outfit',sans-serif;transition:border-color .15s;width:100%}
+.fi:focus{border-color:var(--accent)}
+.fi::placeholder{color:var(--t3)}
+.fi-select{cursor:pointer}
+.fi-select option{background:var(--s2)}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+textarea.fi{resize:vertical;min-height:70px}
 
 /* ── STATUS PICKER ── */
 .status-pick{display:flex;gap:8px;margin-bottom:16px}
-.status-opt{flex:1;padding:10px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface2);text-align:center;cursor:pointer;transition:all .15s;font-size:12px;font-weight:600}
-.status-opt:hover{border-color:var(--border2)}
-.status-opt.hot.active{background:var(--hot-bg);border-color:var(--hot);color:var(--hot)}
-.status-opt.warm.active{background:var(--warm-bg);border-color:var(--warm);color:var(--warm)}
-.status-opt.cold.active{background:var(--cold-bg);border-color:var(--cold);color:var(--cold)}
+.sp{flex:1;padding:11px 8px;border-radius:var(--r);border:1px solid var(--b1);background:var(--s2);text-align:center;cursor:pointer;transition:all .18s;font-size:12px;font-weight:600;font-family:'Outfit',sans-serif}
+.sp:hover{border-color:var(--b2)}
+.sp.hot.active{background:var(--hot-s);border-color:var(--hot);color:var(--hot)}
+.sp.warm.active{background:var(--warm-s);border-color:var(--warm);color:var(--warm)}
+.sp.cold.active{background:var(--cold-s);border-color:var(--cold);color:var(--cold)}
 
 /* ── AI BOX ── */
-.ai-section{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;margin-bottom:16px}
-.ai-section-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ai-box{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r-lg);padding:16px;margin-bottom:16px}
+.ai-box-title{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.ai-quick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.ai-q{padding:4px 10px;border-radius:20px;border:1px solid var(--b1);font-size:11px;color:var(--t3);cursor:pointer;transition:all .12s;font-family:'Outfit',sans-serif}
+.ai-q:hover{border-color:var(--b2);color:var(--t2)}
 .ai-input-row{display:flex;gap:8px}
-.ai-input-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;font-size:13px;color:var(--text1);outline:none;font-family:'DM Sans',sans-serif}
+.ai-input-row input{flex:1;background:var(--bg);border:1px solid var(--b1);border-radius:var(--r);padding:8px 12px;font-size:13px;color:var(--t1);outline:none;font-family:'Outfit',sans-serif;transition:border-color .15s}
 .ai-input-row input:focus{border-color:var(--accent)}
-.ai-result{margin-top:10px;background:var(--bg);border-radius:var(--r);padding:12px;font-size:13px;color:var(--text1);line-height:1.75;white-space:pre-wrap;border-left:2px solid var(--green);display:none}
+.ai-result{margin-top:10px;background:var(--bg);border-radius:var(--r);padding:13px;font-size:13px;color:var(--t1);line-height:1.75;white-space:pre-wrap;border-left:2px solid var(--green);display:none}
 .ai-result.show{display:block}
-.dots{display:inline-flex;gap:3px;align-items:center;vertical-align:middle}
-.dots span{width:4px;height:4px;border-radius:50%;background:var(--green);animation:dot 1.2s infinite}
+.dots span{width:4px;height:4px;border-radius:50%;background:var(--green);display:inline-block;animation:dt 1.2s infinite;margin:0 1px}
 .dots span:nth-child(2){animation-delay:.2s}
 .dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot{0%,80%,100%{opacity:.2}40%{opacity:1}}
+@keyframes dt{0%,80%,100%{opacity:.2}40%{opacity:1}}
 
 /* ── CALL LOG ── */
-.call-log-item{padding:12px;border-radius:var(--r);border:1px solid var(--border);margin-bottom:8px;background:var(--surface2)}
-.call-log-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.call-log-time{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
-.call-log-note{font-size:13px;color:var(--text2);line-height:1.5}
+.cl-item{padding:11px 13px;border-radius:var(--r);border:1px solid var(--b1);margin-bottom:7px;background:var(--s2)}
+.cl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.cl-time{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace}
+.cl-text{font-size:13px;color:var(--t2);line-height:1.55}
 
-/* ── FOLLOW-UP PAGE ── */
-.followup-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:border-color .15s}
-.followup-card:hover{border-color:var(--border2)}
-.followup-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.followup-info{flex:1}
-.followup-name{font-size:14px;font-weight:500;color:var(--text1);margin-bottom:3px}
-.followup-meta{font-size:12px;color:var(--text3)}
-.followup-note{font-size:13px;color:var(--text2);margin-top:6px}
+/* ── PROJECT CARDS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px}
+.proj-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-xl);padding:18px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.proj-card.apt::before{background:linear-gradient(90deg,var(--accent),var(--purple))}
+.proj-card.land::before{background:linear-gradient(90deg,var(--green),var(--cold))}
+.proj-card.villa::before{background:linear-gradient(90deg,var(--warm),var(--hot))}
+.proj-card:hover{border-color:var(--b2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.proj-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;color:var(--t3)}
+.proj-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.proj-meta{font-size:12px;color:var(--t2);line-height:1.6}
+.proj-stats{display:flex;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--b1)}
+.ps{text-align:center;flex:1}
+.ps-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:var(--t1)}
+.ps-lbl{font-size:10px;color:var(--t3);margin-top:2px}
+.add-proj-card{background:transparent;border:1px dashed var(--b2);border-radius:var(--r-xl);padding:18px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--t3);font-size:13px;min-height:140px}
+.add-proj-card:hover{border-color:var(--accent);color:var(--accent);background:rgba(79,124,255,.04)}
+
+/* ── FOLLOWUP ── */
+.fu-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:all .15s}
+.fu-card:hover{border-color:var(--b2);background:var(--s2)}
+.fu-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.fu-info{flex:1}
+.fu-name{font-size:14px;font-weight:500;color:var(--t1);margin-bottom:3px}
+.fu-meta{font-size:12px;color:var(--t3)}
+.fu-note{font-size:13px;color:var(--t2);margin-top:5px;line-height:1.5}
 
 /* ── SETTINGS ── */
-.settings-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:16px}
-.settings-title{font-size:13px;font-weight:600;color:var(--text1);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.settings-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-.settings-row:last-child{border-bottom:none}
-.settings-label{flex:1;font-size:13px;color:var(--text2)}
-.settings-label small{display:block;font-size:11px;color:var(--text3);margin-top:2px}
+.sett-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-xl);padding:22px;margin-bottom:14px}
+.sett-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--b1);color:var(--t1)}
+.sett-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--b1)}
+.sett-row:last-child{border-bottom:none}
+.sett-lbl{flex:1;font-size:13px;color:var(--t2)}
+.sett-lbl small{display:block;font-size:11px;color:var(--t3);margin-top:2px;line-height:1.5}
+
+/* ── ALERT ── */
+.alert{border-radius:var(--r-lg);padding:12px 16px;margin-bottom:16px;font-size:13px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.alert-warm{background:var(--warm-s);border:1px solid rgba(255,159,67,.2);color:var(--warm)}
+.alert-hot{background:var(--hot-s);border:1px solid rgba(255,77,109,.2);color:var(--hot)}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:60px 20px;color:var(--t3)}
+.empty-ico{font-size:38px;margin-bottom:14px}
 
 /* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="brand">
-    <div class="brand-name">Sale<span>BĐS</span></div>
-    <div class="brand-sub">CRM · AI-powered</div>
+    <div class="brand-logo">Sale<span>Pro</span></div>
+    <div class="brand-tag">BĐS · CRM · AI-powered</div>
   </div>
-  <div class="nav-section">
-    <div class="nav-label">Chính</div>
-    <div class="nav-item active" data-page="dashboard">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
-      Dashboard
+  <nav class="nav">
+    <div class="nav-group">
+      <div class="nav-sect">Chính</div>
+      <div class="nav-item active" data-page="dashboard">
+        <svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item" data-page="customers">
+        <svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5"/></svg>
+        Khách hàng
+      </div>
+      <div class="nav-item" data-page="projects">
+        <svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 14V7l6-5 6 5v7"/><rect x="6" y="10" width="4" height="4"/></svg>
+        Dự án
+      </div>
+      <div class="nav-item" data-page="followup">
+        <svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M8 5v6"/></svg>
+        Follow-up
+        <span class="nav-badge" id="fu-badge" style="display:none"></span>
+      </div>
     </div>
-    <div class="nav-item" data-page="customers">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5"/></svg>
-      Danh sách khách
+    <div class="nav-group">
+      <div class="nav-sect">Hệ thống</div>
+      <div class="nav-item" data-page="settings">
+        <svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg>
+        Cài đặt
+      </div>
     </div>
-    <div class="nav-item" data-page="followup">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
-      Follow-up hôm nay
-      <span id="followup-badge" style="margin-left:auto;background:var(--hot);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;display:none"></span>
-    </div>
-  </div>
-  <div class="nav-section" style="margin-top:8px">
-    <div class="nav-label">Hệ thống</div>
-    <div class="nav-item" data-page="settings">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg>
-      Cài đặt
-    </div>
-  </div>
-  <div class="sidebar-footer">
-    <div class="api-status">
-      <div class="api-dot" id="api-dot"></div>
-      <span id="api-label">Chưa kết nối AI</span>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="ai-pill">
+      <div class="ai-dot" id="ai-dot"></div>
+      <div class="ai-txt" id="ai-lbl">AI chưa kết nối</div>
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
-    <div class="topbar-title" id="page-title">Dashboard</div>
+    <div class="page-title" id="page-title">Dashboard</div>
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="globalSearch" placeholder="Tìm khách hàng..." oninput="handleSearch(this.value)">
+      <span class="si">⌕</span>
+      <input class="search-input" id="gsearch" placeholder="Tìm khách, dự án..." oninput="handleSearch(this.value)">
     </div>
-    <button class="btn" onclick="openDrawer()">+ Thêm khách</button>
+    <button class="btn" onclick="openAddCustomer()">＋ Thêm khách</button>
   </div>
   <div class="content" id="mainContent"></div>
 </div>
 
-<!-- DRAWER: Thêm / Sửa khách -->
-<div class="overlay" id="drawer-overlay" onclick="handleOverlayClick(event)">
+<!-- DRAWER -->
+<div class="overlay" id="overlay" onclick="handleOvClick(event)">
   <div class="drawer" id="drawer">
-    <div class="drawer-header">
-      <div class="drawer-title" id="drawer-title">Thêm khách hàng</div>
-      <button class="btn-ghost btn-sm" onclick="closeDrawer()">✕</button>
+    <div class="dh">
+      <div class="dh-title" id="drawer-title">Thêm khách hàng</div>
+      <button class="btn-icon" onclick="closeDrawer()">✕</button>
     </div>
-    <div class="drawer-body" id="drawer-body"></div>
-    <div class="drawer-footer" id="drawer-footer"></div>
+    <div class="db" id="drawer-body"></div>
+    <div class="df" id="drawer-footer"></div>
   </div>
 </div>
 
-<!-- Firebase + App -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, getDocs, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { initializeApp }       from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// ── FIREBASE CONFIG (anh thay bằng config mới nhé) ──
+// ── CONFIG ── (anh thay REPLACE_API_KEY bằng key Firebase)
 const firebaseConfig = {
-  apiKey: "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",
-  authDomain: "telesale4bds.firebaseapp.com",
-  projectId: "telesale4bds",
-  storageBucket: "telesale4bds.firebasestorage.app",
+  apiKey:            "REPLACE_API_KEY",
+  authDomain:        "telesale4bds.firebaseapp.com",
+  projectId:         "telesale4bds",
+  storageBucket:     "telesale4bds.firebasestorage.app",
   messagingSenderId: "544226736770",
-  appId: "1:544226736770:web:c28fe9743e0b2b85b0929b"
+  appId:             "1:544226736770:web:c28fe9743e0b2b85b0929b"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-
-// ── GROQ CONFIG ──
-let GROQ_KEY = localStorage.getItem("bds_groq_key") || "";
+const fbApp = initializeApp(firebaseConfig);
+const db    = getFirestore(fbApp);
 
 // ── STATE ──
-let customers = [];
-let activePage   = "dashboard";
-let activeFilter = "all";
-let searchQuery  = "";
-let editingId    = null;
+let customers = [], projects = [];
+let page     = "dashboard";
+let filter   = "all";
+let projFilter = "all";
+let sq       = "";
+let editId   = null;
+let drawerMode = "customer"; // customer | project
+let GROQ_KEY = localStorage.getItem("bds_groq_key") || "";
 
-// ── REALTIME LISTENER ──
-const q = query(collection(db, "customers"), orderBy("createdAt","desc"));
-onSnapshot(q, (snap) => {
-  customers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  renderPage();
-  updateFollowupBadge();
-});
+// ── BDS TYPES ──
+const BDS_TYPES = [
+  { value:"apt",   label:"Căn hộ chung cư",       icon:"🏢" },
+  { value:"land",  label:"Đất nền dự án",          icon:"🌿" },
+  { value:"villa", label:"Nhà phố / Biệt thự",     icon:"🏡" },
+  { value:"other", label:"Loại khác",              icon:"📦" }
+];
 
-// ── NAVIGATION ──
-window.setPage = function(page) {
-  activePage = page;
-  document.querySelectorAll(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.page === page));
-  const titles = { dashboard:"Dashboard", customers:"Danh sách khách", followup:"Follow-up hôm nay", settings:"Cài đặt" };
-  document.getElementById("page-title").textContent = titles[page] || page;
+const TYPE_MAP = Object.fromEntries(BDS_TYPES.map(t=>[t.value,t]));
+
+// ── REALTIME ──
+onSnapshot(query(collection(db,"customers"), orderBy("createdAt","desc")),
+  snap => { customers = snap.docs.map(d=>({id:d.id,...d.data()})); renderPage(); updateBadge(); });
+
+onSnapshot(query(collection(db,"projects"), orderBy("createdAt","desc")),
+  snap => { projects = snap.docs.map(d=>({id:d.id,...d.data()})); renderPage(); });
+
+// ── NAV ──
+window.setPage = p => {
+  page = p;
+  const titles = {dashboard:"Dashboard",customers:"Khách hàng",projects:"Dự án BĐS",followup:"Follow-up",settings:"Cài đặt"};
+  document.getElementById("page-title").textContent = titles[p]||p;
+  document.querySelectorAll(".nav-item[data-page]").forEach(n=>n.classList.toggle("active",n.dataset.page===p));
   renderPage();
 };
-
-document.querySelectorAll(".nav-item[data-page]").forEach(n =>
-  n.addEventListener("click", () => setPage(n.dataset.page))
-);
+document.querySelectorAll(".nav-item[data-page]").forEach(n=>n.addEventListener("click",()=>setPage(n.dataset.page)));
 
 // ── RENDER ──
-window.renderPage = function() {
+window.renderPage = () => {
   const c = document.getElementById("mainContent");
-  if (activePage === "dashboard") c.innerHTML = renderDashboard();
-  else if (activePage === "customers") c.innerHTML = renderCustomers();
-  else if (activePage === "followup") c.innerHTML = renderFollowup();
-  else if (activePage === "settings") c.innerHTML = renderSettings();
-  attachPageEvents();
+  if      (page==="dashboard") c.innerHTML = renderDashboard();
+  else if (page==="customers") c.innerHTML = renderCustomers();
+  else if (page==="projects")  c.innerHTML = renderProjects();
+  else if (page==="followup")  c.innerHTML = renderFollowup();
+  else if (page==="settings")  c.innerHTML = renderSettings();
+  attachEvents();
 };
 
+// ── DASHBOARD ──
 function renderDashboard() {
-  const total = customers.length;
-  const hot   = customers.filter(c => c.status === "hot").length;
-  const warm  = customers.filter(c => c.status === "warm").length;
-  const cold  = customers.filter(c => c.status === "cold").length;
-  const today = getTodayFollowups().length;
+  const tot  = customers.length;
+  const hot  = customers.filter(c=>c.status==="hot").length;
+  const warm = customers.filter(c=>c.status==="warm").length;
+  const cold = customers.filter(c=>c.status==="cold").length;
+  const nprj = projects.length;
+  const tod  = getTodayFU().length;
 
-  const recent = customers.slice(0, 8);
+  const recent = customers.slice(0,6);
 
   return `
-  <div class="stats-row">
-    <div class="stat-card stat-total"><div class="stat-label">Tổng khách</div><div class="stat-num">${total}</div><div class="stat-sub">trong hệ thống</div></div>
-    <div class="stat-card stat-hot"><div class="stat-label">🔥 Nóng</div><div class="stat-num">${hot}</div><div class="stat-sub">cần chốt ngay</div></div>
-    <div class="stat-card stat-warm"><div class="stat-label">🌤 Ấm</div><div class="stat-num">${warm}</div><div class="stat-sub">đang nuôi dưỡng</div></div>
-    <div class="stat-card stat-cold"><div class="stat-label">❄ Lạnh</div><div class="stat-num">${cold}</div><div class="stat-sub">cần tái kích hoạt</div></div>
+  <div class="stats-grid">
+    <div class="stat c-total"><div class="stat-lbl">Tổng khách</div><div class="stat-val">${tot}</div><div class="stat-sub">trong hệ thống</div></div>
+    <div class="stat c-hot"  ><div class="stat-lbl">🔥 Nóng</div><div class="stat-val">${hot}</div><div class="stat-sub">cần chốt ngay</div></div>
+    <div class="stat c-warm" ><div class="stat-lbl">🌤 Ấm</div><div class="stat-val">${warm}</div><div class="stat-sub">đang nuôi dưỡng</div></div>
+    <div class="stat c-cold" ><div class="stat-lbl">❄ Lạnh</div><div class="stat-val">${cold}</div><div class="stat-sub">tái kích hoạt</div></div>
+    <div class="stat c-proj" ><div class="stat-lbl">🏗 Dự án</div><div class="stat-val">${nprj}</div><div class="stat-sub">đang quản lý</div></div>
   </div>
-  ${today > 0 ? `<div style="background:var(--warm-bg);border:1px solid var(--warm);border-radius:var(--r-lg);padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--warm);cursor:pointer" onclick="setPage('followup')">
-    ⏰ Hôm nay có <strong>${today}</strong> khách cần follow-up — <u>Xem ngay</u>
-  </div>` : ""}
-  <div style="margin-bottom:10px;font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Khách gần đây</div>
-  <div class="table-wrap">${renderTable(recent)}</div>`;
+  ${tod>0?`<div class="alert alert-warm" onclick="setPage('followup')">⏰ Hôm nay có <strong>${tod}</strong> khách cần follow-up — Xem ngay →</div>`:""}
+  <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Khách gần đây</div>
+  <div class="tbl-wrap">${renderTable(recent)}</div>`;
 }
 
+// ── CUSTOMERS ──
 function renderCustomers() {
   let list = customers;
-  if (activeFilter !== "all") list = list.filter(c => c.status === activeFilter);
-  if (searchQuery) list = list.filter(c =>
-    (c.name||"").toLowerCase().includes(searchQuery) ||
-    (c.phone||"").includes(searchQuery) ||
-    (c.note||"").toLowerCase().includes(searchQuery)
+  if (filter!=="all") list = list.filter(c=>c.status===filter);
+  if (projFilter!=="all") list = list.filter(c=>c.projectId===projFilter);
+  if (sq) list = list.filter(c=>
+    (c.name||"").toLowerCase().includes(sq)||
+    (c.phone||"").includes(sq)||
+    (c.note||"").toLowerCase().includes(sq)||
+    (c.projectName||"").toLowerCase().includes(sq)
   );
 
+  const projOpts = projects.map(p=>`<button class="fchip ${projFilter===p.id?'act':''}" data-pf="${p.id}">${p.name}</button>`).join("");
+
   return `
-  <div class="filter-bar">
-    <button class="filter-chip ${activeFilter==='all'?'active':''}" data-filter="all">Tất cả (${customers.length})</button>
-    <button class="filter-chip hot ${activeFilter==='hot'?'active':''}" data-filter="hot">🔥 Nóng (${customers.filter(c=>c.status==='hot').length})</button>
-    <button class="filter-chip warm ${activeFilter==='warm'?'active':''}" data-filter="warm">🌤 Ấm (${customers.filter(c=>c.status==='warm').length})</button>
-    <button class="filter-chip cold ${activeFilter==='cold'?'active':''}" data-filter="cold">❄ Lạnh (${customers.filter(c=>c.status==='cold').length})</button>
+  <div class="filter-row">
+    <button class="fchip ${filter==="all"?"act":""}" data-f="all">Tất cả (${customers.length})</button>
+    <button class="fchip hot ${filter==="hot"?"act":""}" data-f="hot">🔥 Nóng (${customers.filter(c=>c.status==="hot").length})</button>
+    <button class="fchip warm ${filter==="warm"?"act":""}" data-f="warm">🌤 Ấm (${customers.filter(c=>c.status==="warm").length})</button>
+    <button class="fchip cold ${filter==="cold"?"act":""}" data-f="cold">❄ Lạnh (${customers.filter(c=>c.status==="cold").length})</button>
+    ${projOpts}
   </div>
-  <div class="table-wrap">${list.length ? renderTable(list) : '<div class="empty"><div class="empty-icon">🔍</div>Không tìm thấy khách nào</div>'}</div>`;
+  <div class="tbl-wrap">${list.length?renderTable(list):'<div class="empty"><div class="empty-ico">🔍</div>Không tìm thấy khách nào</div>'}</div>`;
 }
 
 function renderTable(list) {
-  if (!list.length) return '<div class="empty"><div class="empty-icon">👤</div>Chưa có khách hàng nào<br><small style="margin-top:8px;display:block">Bấm "+ Thêm khách" để bắt đầu</small></div>';
-  const rows = list.map(c => {
-    const badge = c.status==="hot"?'badge-hot':c.status==="warm"?'badge-warm':'badge-cold';
-    const label = c.status==="hot"?'🔥 Nóng':c.status==="warm"?'🌤 Ấm':'❄ Lạnh';
-    const fu = c.followupDate ? formatFollowup(c.followupDate) : '<span style="color:var(--text3)">—</span>';
-    return `<tr onclick="openDetail('${c.id}')">
-      <td class="name">${c.name||"—"}</td>
-      <td>${c.phone||"—"}</td>
-      <td>${c.budget||"—"}</td>
-      <td><span class="badge ${badge}">${label}</span></td>
-      <td>${fu}</td>
-      <td style="color:var(--text3);font-size:12px">${c.note ? c.note.substring(0,40)+"…" : "—"}</td>
-    </tr>`;
-  }).join("");
+  if (!list.length) return `<div class="empty"><div class="empty-ico">👤</div>Chưa có khách hàng<br><small style="display:block;margin-top:8px">Bấm "+ Thêm khách" để bắt đầu</small></div>`;
   return `<table><thead><tr>
-    <th>Họ tên</th><th>SĐT</th><th>Ngân sách</th><th>Trạng thái</th><th>Follow-up</th><th>Ghi chú</th>
-  </tr></thead><tbody>${rows}</tbody></table>`;
+    <th>Họ tên</th><th>SĐT</th><th>Dự án</th><th>Ngân sách</th><th>Trạng thái</th><th>Follow-up</th><th>Ghi chú</th>
+  </tr></thead><tbody>${list.map(c=>{
+    const bm  = c.status==="hot"?"b-hot":c.status==="warm"?"b-warm":"b-cold";
+    const bl  = c.status==="hot"?"🔥 Nóng":c.status==="warm"?"🌤 Ấm":"❄ Lạnh";
+    const fu  = c.followupDate?formatFU(c.followupDate):'<span style="color:var(--t3)">—</span>';
+    const pn  = c.projectName?`<span class="badge b-proj">${c.projectName}</span>`:'<span style="color:var(--t3)">—</span>';
+    return `<tr onclick="openEditCustomer('${c.id}')">
+      <td class="name">${c.name||"—"}</td>
+      <td class="phone">${c.phone||"—"}</td>
+      <td>${pn}</td>
+      <td>${c.budget||"—"}</td>
+      <td><span class="badge ${bm}">${bl}</span></td>
+      <td>${fu}</td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.note?c.note.substring(0,40):"—"}</td>
+    </tr>`;
+  }).join("")}</tbody></table>`;
 }
 
-function renderFollowup() {
-  const todayList = getTodayFollowups();
-  const upcomingList = getUpcomingFollowups();
-
-  const renderFuCard = (c, cls) => {
-    const dot = c.status==="hot"?'var(--hot)':c.status==="warm"?'var(--warm)':'var(--cold)';
-    return `<div class="followup-card" onclick="openDetail('${c.id}')">
-      <div class="followup-dot" style="background:${dot}"></div>
-      <div class="followup-info">
-        <div class="followup-name">${c.name||"—"} <span style="color:var(--text3);font-weight:400;font-size:12px">· ${c.phone||""}</span></div>
-        <div class="followup-meta ${cls}">${c.followupDate} · ${c.budget||"Chưa rõ ngân sách"}</div>
-        ${c.note ? `<div class="followup-note">${c.note}</div>` : ""}
+// ── PROJECTS ──
+function renderProjects() {
+  const cards = projects.map(p=>{
+    const t   = TYPE_MAP[p.type]||TYPE_MAP.other;
+    const cnt = customers.filter(c=>c.projectId===p.id).length;
+    const hot = customers.filter(c=>c.projectId===p.id&&c.status==="hot").length;
+    return `<div class="proj-card ${p.type||'apt'}" onclick="openEditProject('${p.id}')">
+      <div class="proj-type">${t.icon} ${t.label}</div>
+      <div class="proj-name">${p.name||"Chưa đặt tên"}</div>
+      <div class="proj-meta">${p.location||""}${p.priceRange?` · ${p.priceRange}`:""}</div>
+      <div class="proj-stats">
+        <div class="ps"><div class="ps-val">${cnt}</div><div class="ps-lbl">Khách</div></div>
+        <div class="ps"><div class="ps-val" style="color:var(--hot)">${hot}</div><div class="ps-lbl">Nóng</div></div>
+        <div class="ps"><div class="ps-val" style="color:var(--purple)">${p.commission||"—"}</div><div class="ps-lbl">Hoa hồng</div></div>
       </div>
-      <button class="btn btn-sm" onclick="event.stopPropagation();openAIZalo('${c.id}')">AI soạn Zalo</button>
     </div>`;
-  };
-
+  }).join("");
   return `
-  ${todayList.length ? `
-  <div style="font-size:12px;font-weight:600;color:var(--hot);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">⏰ Hôm nay (${todayList.length})</div>
-  ${todayList.map(c=>renderFuCard(c,'due-today')).join("")}
-  <div style="height:16px"></div>` : ""}
-  ${upcomingList.length ? `
-  <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">📅 Sắp tới</div>
-  ${upcomingList.map(c=>renderFuCard(c,'')).join("")}` : ""}
-  ${!todayList.length && !upcomingList.length ? '<div class="empty"><div class="empty-icon">✅</div>Không có lịch follow-up nào sắp tới</div>' : ""}
-  `;
-}
-
-function renderSettings() {
-  return `
-  <div class="settings-section">
-    <div class="settings-title">🤖 Kết nối AI (Groq)</div>
-    <div class="settings-row">
-      <div class="settings-label">Groq API Key<small>Lấy miễn phí tại console.groq.com/keys · Key bắt đầu bằng gsk_...</small></div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <input type="password" class="form-input" id="groqKeyInput" placeholder="gsk_..." value="${GROQ_KEY}" style="flex:1">
-      <button class="btn" onclick="saveGroqKey()">Lưu key</button>
-    </div>
-    <div id="groq-status" style="font-size:12px;margin-top:6px;color:var(--green)">${GROQ_KEY ? "✓ Đã kết nối AI" : ""}</div>
-  </div>
-  <div class="settings-section">
-    <div class="settings-title">📊 Dữ liệu</div>
-    <div class="settings-row">
-      <div class="settings-label">Tổng khách hàng<small>Lưu trữ trên Firebase Firestore</small></div>
-      <span style="font-size:13px;color:var(--text1);font-weight:500">${customers.length} khách</span>
-    </div>
-    <div class="settings-row">
-      <div class="settings-label">Export dữ liệu<small>Tải toàn bộ danh sách dạng JSON</small></div>
-      <button class="btn-ghost btn-sm" onclick="exportData()">Export JSON</button>
-    </div>
+  <div class="proj-grid">
+    ${cards}
+    <div class="add-proj-card" onclick="openAddProject()">＋ Thêm dự án mới</div>
   </div>`;
 }
 
-// ── DRAWER: Thêm/Sửa khách ──
-window.openDrawer = function(id = null) {
-  editingId = id;
-  const c = id ? customers.find(x=>x.id===id) : null;
-  document.getElementById("drawer-title").textContent = id ? "Chi tiết khách hàng" : "Thêm khách hàng";
+// ── FOLLOWUP ──
+function renderFollowup() {
+  const tod  = getTodayFU();
+  const soon = getUpcomingFU();
+  const card = (c,cls) => {
+    const dot = c.status==="hot"?"var(--hot)":c.status==="warm"?"var(--warm)":"var(--cold)";
+    const pn  = c.projectName?`<span class="badge b-proj" style="margin-left:6px">${c.projectName}</span>`:"";
+    return `<div class="fu-card" onclick="openEditCustomer('${c.id}')">
+      <div class="fu-dot" style="background:${dot}"></div>
+      <div class="fu-info">
+        <div class="fu-name">${c.name||"—"}${pn} <span style="color:var(--t3);font-size:12px;font-weight:400">· ${c.phone||""}</span></div>
+        <div class="fu-meta ${cls}">${c.followupDate} · ${c.budget||"Chưa rõ ngân sách"}</div>
+        ${c.note?`<div class="fu-note">${c.note}</div>`:""}
+      </div>
+      <button class="btn btn-sm" onclick="event.stopPropagation();quickZalo('${c.id}')">AI Zalo ↗</button>
+    </div>`;
+  };
+  return `
+  ${tod.length?`<div style="font-size:10px;font-weight:700;color:var(--hot);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">⏰ Hôm nay (${tod.length})</div>${tod.map(c=>card(c,"due-today")).join("")}<div style="height:18px"></div>`:""}
+  ${soon.length?`<div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">📅 Sắp tới (7 ngày)</div>${soon.map(c=>card(c,"")).join("")}`:""}
+  ${!tod.length&&!soon.length?'<div class="empty"><div class="empty-ico">✅</div>Không có lịch follow-up nào sắp tới</div>':""}`;
+}
+
+// ── SETTINGS ──
+function renderSettings() {
+  return `
+  <div class="sett-card">
+    <div class="sett-title">🤖 Groq AI</div>
+    <div class="sett-row"><div class="sett-lbl">API Key<small>Lấy miễn phí tại console.groq.com · key bắt đầu gsk_...</small></div></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input type="password" class="fi" id="groq-inp" placeholder="gsk_..." value="${GROQ_KEY}" style="flex:1">
+      <button class="btn" onclick="saveGroq()">Lưu</button>
+    </div>
+    <div id="groq-st" style="font-size:12px;margin-top:7px;color:var(--green)">${GROQ_KEY?"✓ Đã kết nối":"" }</div>
+  </div>
+  <div class="sett-card">
+    <div class="sett-title">📊 Dữ liệu</div>
+    <div class="sett-row"><div class="sett-lbl">Tổng khách<small>Lưu trên Firebase Firestore realtime</small></div><span style="font-family:'JetBrains Mono';font-size:14px;color:var(--t1)">${customers.length}</span></div>
+    <div class="sett-row"><div class="sett-lbl">Tổng dự án</div><span style="font-family:'JetBrains Mono';font-size:14px;color:var(--t1)">${projects.length}</span></div>
+    <div class="sett-row"><div class="sett-lbl">Export JSON backup</div><button class="btn-ghost btn-sm" onclick="exportData()">Export</button></div>
+  </div>`;
+}
+
+// ── DRAWER: CUSTOMER ──
+window.openAddCustomer = () => { editId=null; drawerMode="customer"; showCustomerForm(null); };
+window.openEditCustomer = id => { editId=id; drawerMode="customer"; showCustomerForm(customers.find(c=>c.id===id)); };
+
+function showCustomerForm(c) {
+  document.getElementById("drawer-title").textContent = c ? "Chi tiết khách hàng" : "Thêm khách hàng";
+  const projOpts = projects.map(p=>`<option value="${p.id}" ${c?.projectId===p.id?"selected":""}>${p.name}</option>`).join("");
+  const defStatus = c?.status || "warm";
 
   document.getElementById("drawer-body").innerHTML = `
-  <div class="form-row">
-    <div class="form-group"><label class="form-label">Họ tên</label><input class="form-input" id="f-name" placeholder="Nguyễn Văn A" value="${c?.name||""}"></div>
-    <div class="form-group"><label class="form-label">Số điện thoại</label><input class="form-input" id="f-phone" placeholder="09xx..." value="${c?.phone||""}"></div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Họ tên</label><input class="fi" id="f-name" placeholder="Nguyễn Văn A" value="${c?.name||""}"></div>
+    <div class="fg"><label class="fl">Số điện thoại</label><input class="fi" id="f-phone" placeholder="09xx..." value="${c?.phone||""}"></div>
   </div>
-  <div class="form-row">
-    <div class="form-group"><label class="form-label">Ngân sách</label><input class="form-input" id="f-budget" placeholder="2.5 tỷ / 15tr/tháng" value="${c?.budget||""}"></div>
-    <div class="form-group"><label class="form-label">Mục đích</label>
-      <select class="form-input" id="f-purpose">
+  <div class="fg"><label class="fl">Dự án quan tâm</label>
+    <select class="fi fi-select" id="f-proj">
+      <option value="">-- Chọn dự án --</option>
+      ${projOpts}
+    </select>
+  </div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Ngân sách</label><input class="fi" id="f-budget" placeholder="2.5 tỷ / 15tr/tháng" value="${c?.budget||""}"></div>
+    <div class="fg"><label class="fl">Mục đích</label>
+      <select class="fi fi-select" id="f-purpose">
         <option value="">Chọn...</option>
-        <option value="Để ở" ${c?.purpose==="Để ở"?"selected":""}>Để ở</option>
-        <option value="Đầu tư - cho thuê" ${c?.purpose==="Đầu tư - cho thuê"?"selected":""}>Đầu tư - cho thuê</option>
-        <option value="Đầu tư - bán lại" ${c?.purpose==="Đầu tư - bán lại"?"selected":""}>Đầu tư - bán lại</option>
+        ${["Để ở","Đầu tư - cho thuê","Đầu tư - bán lại"].map(v=>`<option ${c?.purpose===v?"selected":""}>${v}</option>`).join("")}
       </select>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-group"><label class="form-label">Khu vực quan tâm</label><input class="form-input" id="f-area" placeholder="Q7, Q2..." value="${c?.area||""}"></div>
-    <div class="form-group"><label class="form-label">Loại căn hộ</label><input class="form-input" id="f-type" placeholder="2PN, 3PN..." value="${c?.roomType||""}"></div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Khu vực</label><input class="fi" id="f-area" placeholder="Q7, Q2, Thủ Đức..." value="${c?.area||""}"></div>
+    <div class="fg"><label class="fl">Nguồn data</label><input class="fi" id="f-src" placeholder="Cold call, Zalo, Ref..." value="${c?.source||""}"></div>
   </div>
-  <div class="form-row full">
-    <div class="form-group"><label class="form-label">Trạng thái khách</label>
-      <div class="status-pick">
-        <div class="status-opt hot ${(c?.status||'warm')==='hot'?'active':''}" data-s="hot">🔥 Nóng</div>
-        <div class="status-opt warm ${(c?.status||'warm')==='warm'?'active':''}" data-s="warm">🌤 Ấm</div>
-        <div class="status-opt cold ${(c?.status||'warm')==='cold'?'active':''}" data-s="cold">❄ Lạnh</div>
-      </div>
-    </div>
+  <div class="fg" style="margin-bottom:6px"><label class="fl">Trạng thái</label></div>
+  <div class="status-pick" style="margin-bottom:14px">
+    <div class="sp hot ${defStatus==="hot"?"active":""}" data-s="hot">🔥 Nóng</div>
+    <div class="sp warm ${defStatus==="warm"?"active":""}" data-s="warm">🌤 Ấm</div>
+    <div class="sp cold ${defStatus==="cold"?"active":""}" data-s="cold">❄ Lạnh</div>
   </div>
-  <div class="form-row">
-    <div class="form-group"><label class="form-label">Ngày follow-up</label><input type="date" class="form-input" id="f-followup" value="${c?.followupDate||""}"></div>
-    <div class="form-group"><label class="form-label">Nguồn data</label><input class="form-input" id="f-source" placeholder="Cold call, Zalo, Ref..." value="${c?.source||""}"></div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Ngày follow-up</label><input type="date" class="fi" id="f-fu" value="${c?.followupDate||""}"></div>
+    <div class="fg"><label class="fl">Loại phòng / sản phẩm</label><input class="fi" id="f-room" placeholder="2PN, 3PN, 80m²..." value="${c?.roomType||""}"></div>
   </div>
-  <div class="form-row full">
-    <div class="form-group"><label class="form-label">Ghi chú</label><textarea class="form-input" id="f-note" placeholder="Quan tâm căn 2PN, hay hỏi về view, vợ chồng trẻ...">${c?.note||""}</textarea></div>
-  </div>
+  <div class="fg"><label class="fl">Ghi chú</label><textarea class="fi" id="f-note" placeholder="Quan tâm view cao, gia đình 4 người, hay hỏi về tiến độ...">${c?.note||""}</textarea></div>
 
-  ${id ? `
-  <div class="ai-section">
-    <div class="ai-section-title">🤖 AI soạn tin Zalo / xử lý tình huống</div>
+  ${c ? `
+  <div class="ai-box">
+    <div class="ai-box-title">🤖 AI hỗ trợ real-time</div>
+    <div class="ai-quick">
+      ${["Soạn Zalo follow-up","Xử lý: không có tiền","Xử lý: cần hỏi vợ/chồng","Xử lý: đang xem chỗ khác","Xử lý: không quan tâm","Chốt hẹn gặp mặt"].map(t=>`<span class="ai-q" onclick="setAI('${t}')">${t}</span>`).join("")}
+    </div>
     <div class="ai-input-row">
-      <input id="ai-situation" placeholder="Nhập tình huống cụ thể hoặc chọn nhanh bên dưới..." />
+      <input id="ai-sit" placeholder="Nhập tình huống hoặc chọn nhanh bên trên...">
       <button class="btn btn-sm" onclick="callAI()">Gợi ý ↗</button>
     </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
-      ${["Soạn tin Zalo follow-up","Xử lý: không có tiền","Xử lý: cần hỏi vợ/chồng","Xử lý: đang xem chỗ khác","Soạn lời chốt hẹn gặp"].map(t=>`<span style="padding:3px 10px;border-radius:20px;border:1px solid var(--border);font-size:11px;color:var(--text3);cursor:pointer" onclick="document.getElementById('ai-situation').value='${t}'">${t}</span>`).join("")}
-    </div>
-    <div class="ai-result" id="ai-result"></div>
+    <div class="ai-result" id="ai-res"></div>
   </div>
-
   <div>
-    <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Lịch sử cuộc gọi</div>
+    <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Lịch sử cuộc gọi</div>
     <div style="display:flex;gap:8px;margin-bottom:10px">
-      <input class="form-input" id="new-log" placeholder="Ghi chú cuộc gọi vừa xong..." style="flex:1;font-size:13px">
-      <button class="btn btn-sm" onclick="addCallLog()">Lưu</button>
+      <input class="fi" id="new-log" placeholder="Ghi chú cuộc gọi vừa xong..." style="flex:1;font-size:13px">
+      <button class="btn btn-sm" onclick="addLog()">Lưu</button>
     </div>
-    <div id="call-logs">${renderCallLogs(c?.callLogs||[])}</div>
-  </div>` : ""}
-  `;
-
-  // Status picker events
-  document.querySelectorAll(".status-opt").forEach(el => {
-    el.addEventListener("click", () => {
-      document.querySelectorAll(".status-opt").forEach(x => x.classList.remove("active"));
-      el.classList.add("active");
-    });
-  });
+    <div id="call-logs">${renderLogs(c?.callLogs||[])}</div>
+  </div>` : ""}`;
 
   document.getElementById("drawer-footer").innerHTML = `
-    ${id ? `<button class="btn-danger" onclick="deleteCustomer('${id}')">Xóa</button>` : ""}
-    <button class="btn-ghost" onclick="closeDrawer()" style="margin-left:auto">Huỷ</button>
-    <button class="btn" onclick="saveCustomer()">${id ? "Cập nhật" : "Lưu khách"}</button>
-  `;
+    ${c?`<button class="btn-danger" onclick="delCustomer('${c.id}')">Xóa</button>`:""}
+    <span style="flex:1"></span>
+    <button class="btn-ghost" onclick="closeDrawer()">Huỷ</button>
+    <button class="btn" onclick="saveCustomer()">${c?"Cập nhật":"Lưu khách"}</button>`;
 
-  document.getElementById("drawer-overlay").classList.add("show");
-};
+  document.querySelectorAll(".sp").forEach(el=>el.addEventListener("click",()=>{
+    document.querySelectorAll(".sp").forEach(x=>x.classList.remove("active"));
+    el.classList.add("active");
+  }));
 
-window.openDetail = function(id) { openDrawer(id); };
+  openDrawer();
+}
 
-window.closeDrawer = function() {
-  document.getElementById("drawer-overlay").classList.remove("show");
-  editingId = null;
-};
-
-window.handleOverlayClick = function(e) {
-  if (e.target === document.getElementById("drawer-overlay")) closeDrawer();
-};
-
-function renderCallLogs(logs) {
-  if (!logs || !logs.length) return '<div style="font-size:13px;color:var(--text3);text-align:center;padding:12px">Chưa có ghi chú cuộc gọi</div>';
-  return [...logs].reverse().map(l => `
-  <div class="call-log-item">
-    <div class="call-log-top"><span class="badge ${l.status==="hot"?'badge-hot':l.status==="warm"?'badge-warm':'badge-cold'}">${l.status==="hot"?'🔥 Nóng':l.status==="warm"?'🌤 Ấm':'❄ Lạnh'}</span><span class="call-log-time">${l.time}</span></div>
-    <div class="call-log-note">${l.text}</div>
+function renderLogs(logs) {
+  if (!logs||!logs.length) return '<div style="font-size:13px;color:var(--t3);padding:10px 0">Chưa có ghi chú</div>';
+  return [...logs].reverse().map(l=>`
+  <div class="cl-item">
+    <div class="cl-top"><span class="badge ${l.status==="hot"?"b-hot":l.status==="warm"?"b-warm":"b-cold"}">${l.status==="hot"?"🔥 Nóng":l.status==="warm"?"🌤 Ấm":"❄ Lạnh"}</span><span class="cl-time">${l.time}</span></div>
+    <div class="cl-text">${l.text}</div>
   </div>`).join("");
 }
 
+// ── DRAWER: PROJECT ──
+window.openAddProject = () => { editId=null; drawerMode="project"; showProjectForm(null); };
+window.openEditProject = id => { editId=id; drawerMode="project"; showProjectForm(projects.find(p=>p.id===id)); };
+
+function showProjectForm(p) {
+  document.getElementById("drawer-title").textContent = p ? "Chi tiết dự án" : "Thêm dự án mới";
+  const typeOpts = BDS_TYPES.map(t=>`<option value="${t.value}" ${p?.type===t.value?"selected":""}>${t.icon} ${t.label}</option>`).join("");
+
+  document.getElementById("drawer-body").innerHTML = `
+  <div class="form-2">
+    <div class="fg"><label class="fl">Tên dự án</label><input class="fi" id="p-name" placeholder="Vinhomes Grand Park..." value="${p?.name||""}"></div>
+    <div class="fg"><label class="fl">Loại BĐS</label><select class="fi fi-select" id="p-type">${typeOpts}</select></div>
+  </div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Vị trí / Khu vực</label><input class="fi" id="p-loc" placeholder="Q9, TP Thủ Đức..." value="${p?.location||""}"></div>
+    <div class="fg"><label class="fl">Khoảng giá</label><input class="fi" id="p-price" placeholder="1.5 - 3 tỷ / 50-80 tr/m²" value="${p?.priceRange||""}"></div>
+  </div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Diện tích phổ biến</label><input class="fi" id="p-area" placeholder="60m², 80m², 100m²..." value="${p?.areaRange||""}"></div>
+    <div class="fg"><label class="fl">Hoa hồng</label><input class="fi" id="p-comm" placeholder="2%, 3%..." value="${p?.commission||""}"></div>
+  </div>
+  <div class="form-2">
+    <div class="fg"><label class="fl">Chủ đầu tư</label><input class="fi" id="p-dev" placeholder="Vinhomes, Novaland..." value="${p?.developer||""}"></div>
+    <div class="fg"><label class="fl">Pháp lý</label><input class="fi" id="p-legal" placeholder="Sổ đỏ, sổ hồng, đang làm..." value="${p?.legal||""}"></div>
+  </div>
+  <div class="fg"><label class="fl">Tiện ích nổi bật</label><input class="fi" id="p-amen" placeholder="Hồ bơi, gym, công viên, trường học..." value="${p?.amenities||""}"></div>
+  <div class="fg"><label class="fl">Chính sách bán hàng / vay</label><textarea class="fi" id="p-policy" placeholder="Vay 70% lãi suất 0% 12 tháng, TT 30% nhận nhà...">${p?.policy||""}</textarea></div>
+  <div class="fg"><label class="fl">Điểm mạnh khi pitch</label><textarea class="fi" id="p-pitch" placeholder="Vị trí đắc địa, tiện ích đẳng cấp, thanh khoản cao...">${p?.pitch||""}</textarea></div>
+  <div class="fg"><label class="fl">Ghi chú thêm</label><textarea class="fi" id="p-note">${p?.note||""}</textarea></div>`;
+
+  document.getElementById("drawer-footer").innerHTML = `
+    ${p?`<button class="btn-danger" onclick="delProject('${p.id}')">Xóa</button>`:""}
+    <span style="flex:1"></span>
+    <button class="btn-ghost" onclick="closeDrawer()">Huỷ</button>
+    <button class="btn" onclick="saveProject()">${p?"Cập nhật":"Lưu dự án"}</button>`;
+
+  openDrawer();
+}
+
 // ── SAVE / DELETE ──
-window.saveCustomer = async function() {
-  const status = document.querySelector(".status-opt.active")?.dataset.s || "warm";
-  const data = {
-    name:       document.getElementById("f-name").value.trim(),
-    phone:      document.getElementById("f-phone").value.trim(),
-    budget:     document.getElementById("f-budget").value.trim(),
-    purpose:    document.getElementById("f-purpose").value,
-    area:       document.getElementById("f-area").value.trim(),
-    roomType:   document.getElementById("f-type").value.trim(),
+window.saveCustomer = async () => {
+  const status = document.querySelector(".sp.active")?.dataset.s || "warm";
+  const projId = document.getElementById("f-proj")?.value || "";
+  const proj   = projects.find(p=>p.id===projId);
+  const data   = {
+    name:        document.getElementById("f-name").value.trim(),
+    phone:       document.getElementById("f-phone").value.trim(),
+    projectId:   projId,
+    projectName: proj?.name || "",
+    budget:      document.getElementById("f-budget").value.trim(),
+    purpose:     document.getElementById("f-purpose").value,
+    area:        document.getElementById("f-area").value.trim(),
+    source:      document.getElementById("f-src").value.trim(),
     status,
-    followupDate: document.getElementById("f-followup").value,
-    source:     document.getElementById("f-source").value.trim(),
-    note:       document.getElementById("f-note").value.trim(),
+    followupDate:document.getElementById("f-fu").value,
+    roomType:    document.getElementById("f-room").value.trim(),
+    note:        document.getElementById("f-note").value.trim(),
+    updatedAt:   serverTimestamp()
+  };
+  if (!data.name) { alert("Nhập tên khách trước nhé anh!"); return; }
+  try {
+    if (editId) { await updateDoc(doc(db,"customers",editId), data); }
+    else { data.createdAt=serverTimestamp(); data.callLogs=[]; await addDoc(collection(db,"customers"),data); }
+    closeDrawer();
+  } catch(e) { alert("Lỗi: "+e.message); }
+};
+
+window.saveProject = async () => {
+  const data = {
+    name:       document.getElementById("p-name").value.trim(),
+    type:       document.getElementById("p-type").value,
+    location:   document.getElementById("p-loc").value.trim(),
+    priceRange: document.getElementById("p-price").value.trim(),
+    areaRange:  document.getElementById("p-area").value.trim(),
+    commission: document.getElementById("p-comm").value.trim(),
+    developer:  document.getElementById("p-dev").value.trim(),
+    legal:      document.getElementById("p-legal").value.trim(),
+    amenities:  document.getElementById("p-amen").value.trim(),
+    policy:     document.getElementById("p-policy").value.trim(),
+    pitch:      document.getElementById("p-pitch").value.trim(),
+    note:       document.getElementById("p-note").value.trim(),
     updatedAt:  serverTimestamp()
   };
-  if (!data.name) { alert("Anh nhập tên khách trước nhé!"); return; }
-
+  if (!data.name) { alert("Nhập tên dự án trước nhé anh!"); return; }
   try {
-    if (editingId) {
-      await updateDoc(doc(db, "customers", editingId), data);
-    } else {
-      data.createdAt = serverTimestamp();
-      data.callLogs = [];
-      await addDoc(collection(db, "customers"), data);
-    }
+    if (editId) { await updateDoc(doc(db,"projects",editId),data); }
+    else { data.createdAt=serverTimestamp(); await addDoc(collection(db,"projects"),data); }
     closeDrawer();
-  } catch(e) { alert("Lỗi lưu: " + e.message); }
+  } catch(e) { alert("Lỗi: "+e.message); }
 };
 
-window.deleteCustomer = async function(id) {
+window.delCustomer = async id => {
   if (!confirm("Xóa khách hàng này?")) return;
-  await deleteDoc(doc(db, "customers", id));
-  closeDrawer();
+  await deleteDoc(doc(db,"customers",id)); closeDrawer();
 };
 
-window.addCallLog = async function() {
+window.delProject = async id => {
+  if (!confirm("Xóa dự án này? Khách hàng liên kết sẽ không bị xóa.")) return;
+  await deleteDoc(doc(db,"projects",id)); closeDrawer();
+};
+
+window.addLog = async () => {
   const text = document.getElementById("new-log").value.trim();
-  if (!text || !editingId) return;
-  const c = customers.find(x=>x.id===editingId);
-  const status = document.querySelector(".status-opt.active")?.dataset.s || c?.status || "warm";
-  const logs = c?.callLogs || [];
-  logs.push({ text, status, time: new Date().toLocaleString("vi-VN") });
-  await updateDoc(doc(db, "customers", editingId), { callLogs: logs });
+  if (!text || !editId) return;
+  const c      = customers.find(x=>x.id===editId);
+  const status = document.querySelector(".sp.active")?.dataset.s || c?.status || "warm";
+  const logs   = [...(c?.callLogs||[]), { text, status, time: new Date().toLocaleString("vi-VN") }];
+  await updateDoc(doc(db,"customers",editId), {callLogs:logs});
   document.getElementById("new-log").value = "";
-  document.getElementById("call-logs").innerHTML = renderCallLogs(logs);
+  document.getElementById("call-logs").innerHTML = renderLogs(logs);
 };
 
 // ── AI ──
-window.callAI = async function() {
-  if (!GROQ_KEY) { alert("Anh vào Cài đặt nhập Groq API key trước nhé!"); return; }
-  const sit = document.getElementById("ai-situation").value.trim();
-  if (!sit) { alert("Nhập tình huống trước nhé!"); return; }
-  const c = customers.find(x=>x.id===editingId);
-  const resultEl = document.getElementById("ai-result");
-  resultEl.innerHTML = '<div class="dots"><span></span><span></span><span></span></div> AI đang soạn...';
-  resultEl.classList.add("show");
+window.setAI = t => { document.getElementById("ai-sit").value = t; };
 
-  const ctx = c ? `Thông tin khách: Tên ${c.name}, ngân sách ${c.budget||"chưa rõ"}, mục đích ${c.purpose||"chưa rõ"}, khu vực ${c.area||"chưa rõ"}, trạng thái ${c.status==="hot"?"Nóng":c.status==="warm"?"Ấm":"Lạnh"}. Ghi chú: ${c.note||"không có"}.` : "";
+window.callAI = async () => {
+  if (!GROQ_KEY) { alert("Vào Cài đặt nhập Groq API key nhé anh!"); return; }
+  const sit = document.getElementById("ai-sit")?.value.trim();
+  if (!sit) { alert("Nhập tình huống trước nhé!"); return; }
+  const c    = customers.find(x=>x.id===editId);
+  const proj = projects.find(p=>p.id===c?.projectId);
+  const res  = document.getElementById("ai-res");
+  res.innerHTML = '<span class="dots"><span></span><span></span><span></span></span> AI đang soạn...';
+  res.classList.add("show");
+
+  const ctx = [
+    c ? `Khách: ${c.name}, SĐT ${c.phone}, ngân sách ${c.budget||"chưa rõ"}, mục đích ${c.purpose||"chưa rõ"}, trạng thái ${c.status==="hot"?"Nóng":c.status==="warm"?"Ấm":"Lạnh"}.` : "",
+    c?.note ? `Ghi chú: ${c.note}.` : "",
+    proj ? `Dự án: ${proj.name} (${TYPE_MAP[proj.type]?.label||""}), khu vực ${proj.location||""}, giá ${proj.priceRange||""}, ${proj.amenities||""}.` : "",
+    proj?.policy ? `Chính sách: ${proj.policy}.` : "",
+    proj?.pitch  ? `Điểm mạnh: ${proj.pitch}.` : ""
+  ].filter(Boolean).join(" ");
 
   try {
-    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const r = await fetch("https://api.groq.com/openai/v1/chat/completions",{
       method:"POST",
       headers:{"Content-Type":"application/json","Authorization":`Bearer ${GROQ_KEY}`},
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          { role:"system", content:`Bạn là chuyên gia telesale BĐS Việt Nam, chuyên bán căn hộ chung cư tại TP.HCM. ${ctx} Đưa ra câu trả lời ngắn gọn, tự nhiên, thực chiến. Nếu soạn tin Zalo thì trả về tin nhắn sẵn sàng gửi. Nếu xử lý objection thì đưa câu thoại + 1 tip. Trả lời tiếng Việt.` },
-          { role:"user", content: sit }
+        model:"llama-3.3-70b-versatile",
+        messages:[
+          {role:"system",content:`Bạn là chuyên gia telesale BĐS Việt Nam chuyên nghiệp. ${ctx} Trả lời tiếng Việt, ngắn gọn, thực chiến. Nếu soạn tin Zalo thì viết tin sẵn sàng gửi. Nếu xử lý objection thì đưa câu thoại + 1 tip.`},
+          {role:"user",content:sit}
         ],
-        max_tokens: 600,
-        temperature: 0.7
+        max_tokens:600, temperature:0.72
       })
     });
-    const data = await res.json();
-    if (data.error) { resultEl.textContent = "Lỗi: " + data.error.message; return; }
-    resultEl.textContent = data.choices?.[0]?.message?.content || "Không lấy được gợi ý.";
-  } catch(e) {
-    resultEl.textContent = "Lỗi kết nối. Kiểm tra API key và internet.";
-  }
+    const d = await r.json();
+    if (d.error){res.textContent="Lỗi: "+d.error.message;return;}
+    res.textContent = d.choices?.[0]?.message?.content||"Không lấy được gợi ý.";
+  } catch(e) { res.textContent="Lỗi kết nối. Kiểm tra API key và internet."; }
 };
 
-window.openAIZalo = function(id) {
-  openDrawer(id);
-  setTimeout(() => {
-    const el = document.getElementById("ai-situation");
-    if (el) { el.value = "Soạn tin Zalo follow-up phù hợp với thông tin khách này"; callAI(); }
-  }, 300);
-};
+window.quickZalo = id => { openEditCustomer(id); setTimeout(()=>{setAI("Soạn tin Zalo follow-up phù hợp với thông tin khách này");callAI();},400); };
+
+// ── DRAWER UTILS ──
+function openDrawer() { document.getElementById("overlay").classList.add("show"); }
+window.closeDrawer  = () => { document.getElementById("overlay").classList.remove("show"); editId=null; };
+window.handleOvClick = e => { if(e.target===document.getElementById("overlay"))closeDrawer(); };
 
 // ── SETTINGS ──
-window.saveGroqKey = function() {
-  const val = document.getElementById("groqKeyInput").value.trim();
-  if (!val) return;
-  GROQ_KEY = val;
-  localStorage.setItem("bds_groq_key", val);
-  document.getElementById("groq-status").textContent = "✓ Đã lưu! AI sẵn sàng hoạt động";
-  updateApiStatus();
+window.saveGroq = () => {
+  const v = document.getElementById("groq-inp").value.trim();
+  if (!v) return;
+  GROQ_KEY = v; localStorage.setItem("bds_groq_key",v);
+  document.getElementById("groq-st").textContent = "✓ Đã lưu! AI sẵn sàng hoạt động";
+  updateAIStatus();
 };
 
-window.exportData = function() {
-  const blob = new Blob([JSON.stringify(customers, null, 2)], {type:"application/json"});
-  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-  a.download = `telesale_bds_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
+window.exportData = () => {
+  const blob = new Blob([JSON.stringify({customers,projects},null,2)],{type:"application/json"});
+  const a = document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download=`salepro_bds_${new Date().toISOString().slice(0,10)}.json`; a.click();
 };
 
 // ── UTILS ──
-function getTodayFollowups() {
-  const today = new Date().toISOString().slice(0,10);
-  return customers.filter(c => c.followupDate && c.followupDate <= today);
+function getTodayFU() {
+  const t = new Date().toISOString().slice(0,10);
+  return customers.filter(c=>c.followupDate&&c.followupDate<=t);
 }
-
-function getUpcomingFollowups() {
-  const today = new Date().toISOString().slice(0,10);
-  const week  = new Date(Date.now()+7*864e5).toISOString().slice(0,10);
-  return customers.filter(c => c.followupDate && c.followupDate > today && c.followupDate <= week);
+function getUpcomingFU() {
+  const t = new Date().toISOString().slice(0,10);
+  const w = new Date(Date.now()+7*864e5).toISOString().slice(0,10);
+  return customers.filter(c=>c.followupDate&&c.followupDate>t&&c.followupDate<=w);
 }
-
-function formatFollowup(date) {
-  const today = new Date().toISOString().slice(0,10);
-  if (date < today) return `<span class="overdue">⚠ ${date}</span>`;
-  if (date === today) return `<span class="due-today">⏰ Hôm nay</span>`;
-  return `<span style="color:var(--text2)">${date}</span>`;
+function formatFU(d) {
+  const t = new Date().toISOString().slice(0,10);
+  if (d<t)  return `<span class="overdue">⚠ ${d}</span>`;
+  if (d===t) return `<span class="due-today">⏰ Hôm nay</span>`;
+  return `<span style="color:var(--t2)">${d}</span>`;
 }
-
-function updateFollowupBadge() {
-  const n = getTodayFollowups().length;
-  const el = document.getElementById("followup-badge");
-  el.textContent = n; el.style.display = n ? "inline" : "none";
+function updateBadge() {
+  const n=getTodayFU().length, el=document.getElementById("fu-badge");
+  el.textContent=n; el.style.display=n?"inline":"none";
 }
-
-function updateApiStatus() {
-  const dot   = document.getElementById("api-dot");
-  const label = document.getElementById("api-label");
-  if (GROQ_KEY) { dot.classList.remove("off"); label.textContent = "Groq AI sẵn sàng"; }
-  else          { dot.classList.add("off");    label.textContent = "Chưa kết nối AI"; }
+function updateAIStatus() {
+  const dot=document.getElementById("ai-dot"), lbl=document.getElementById("ai-lbl");
+  if(GROQ_KEY){dot.classList.add("on");lbl.textContent="Groq AI · Ready";}
+  else{dot.classList.remove("on");lbl.textContent="AI chưa kết nối";}
 }
-
-function attachPageEvents() {
-  document.querySelectorAll(".filter-chip[data-filter]").forEach(el =>
-    el.addEventListener("click", () => { activeFilter = el.dataset.filter; renderPage(); })
-  );
+function attachEvents() {
+  document.querySelectorAll("[data-f]").forEach(el=>el.addEventListener("click",()=>{filter=el.dataset.f;renderPage();}));
+  document.querySelectorAll("[data-pf]").forEach(el=>el.addEventListener("click",()=>{projFilter=el.dataset.pf;renderPage();}));
 }
-
-window.handleSearch = function(val) {
-  searchQuery = val.toLowerCase();
-  if (activePage !== "customers") setPage("customers");
-  else renderPage();
-};
+window.handleSearch = v => { sq=v.toLowerCase(); if(page!=="customers")setPage("customers"); else renderPage(); };
 
 // ── INIT ──
-updateApiStatus();
+updateAIStatus();
 renderPage();
 </script>
 </body>
