@@ -542,10 +542,18 @@ function showCustomerForm(c) {
   <div class="fg"><label class="fl">Ghi chú</label><textarea class="fi" id="f-note" placeholder="Quan tâm view cao, gia đình 4 người, hay hỏi về tiến độ...">${c?.note||""}</textarea></div>
 
   ${c ? `
+  <div class="ai-box" style="border-color:rgba(167,139,250,.2)">
+    <div class="ai-box-title" style="color:var(--purple)">🧠 Phân tích chiến lược khách hàng</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:10px;line-height:1.6">AI đọc toàn bộ lịch sử ${(c.callLogs||[]).length} cuộc gọi + thông tin khách + dự án → đưa ra chiến lược tái kích hoạt phù hợp.</div>
+    <button class="btn" style="background:rgba(167,139,250,.15);color:var(--purple);border:1px solid rgba(167,139,250,.3);width:100%;justify-content:center" onclick="analyzeCustomer()">
+      🧠 Phân tích & đề xuất chiến lược
+    </button>
+    <div class="ai-result" id="ai-analysis" style="border-left-color:var(--purple)"></div>
+  </div>
   <div class="ai-box">
     <div class="ai-box-title">🤖 AI hỗ trợ real-time</div>
     <div class="ai-quick">
-      ${["Soạn Zalo follow-up","Xử lý: không có tiền","Xử lý: cần hỏi vợ/chồng","Xử lý: đang xem chỗ khác","Xử lý: không quan tâm","Chốt hẹn gặp mặt"].map(t=>`<span class="ai-q" onclick="setAI('${t}')">${t}</span>`).join("")}
+      ${["Soạn Zalo follow-up","Xử lý: không có tiền","Xử lý: cần hỏi vợ/chồng","Xử lý: đang xem chỗ khác","Xử lý: không quan tâm","Chốt hẹn gặp mặt","Câu kéo lại khách lạnh","Tạo cảm giác khan hiếm"].map(t=>`<span class="ai-q" onclick="setAI('${t}')">${t}</span>`).join("")}
     </div>
     <div class="ai-input-row">
       <input id="ai-sit" placeholder="Nhập tình huống hoặc chọn nhanh bên trên...">
@@ -738,6 +746,85 @@ window.callAI = async () => {
 };
 
 window.quickZalo = id => { openEditCustomer(id); setTimeout(()=>{setAI("Soạn tin Zalo follow-up phù hợp với thông tin khách này");callAI();},400); };
+
+window.analyzeCustomer = async () => {
+  if (!GROQ_KEY) { alert("Vào Cài đặt nhập Groq API key nhé anh!"); return; }
+  const c    = customers.find(x=>x.id===editId);
+  const proj = projects.find(p=>p.id===c?.projectId);
+  const res  = document.getElementById("ai-analysis");
+  res.innerHTML = '<span class="dots"><span></span><span></span><span></span></span> AI đang phân tích toàn bộ lịch sử...';
+  res.classList.add("show");
+
+  // Build full call history context
+  const logs = (c?.callLogs||[]);
+  const historyCtx = logs.length
+    ? logs.map((l,i)=>`Lần ${i+1} [${l.time}] - Trạng thái: ${l.status==="hot"?"Nóng":l.status==="warm"?"Ấm":"Lạnh"} - Ghi chú: ${l.text}`).join("\n")
+    : "Chưa có lịch sử cuộc gọi.";
+
+  const customerCtx = [
+    `Khách: ${c?.name||"?"}, SĐT: ${c?.phone||"?"}`,
+    `Ngân sách: ${c?.budget||"chưa rõ"}`,
+    `Mục đích: ${c?.purpose||"chưa rõ"}`,
+    `Khu vực quan tâm: ${c?.area||"chưa rõ"}`,
+    `Trạng thái hiện tại: ${c?.status==="hot"?"Nóng":c?.status==="warm"?"Ấm":"Lạnh"}`,
+    c?.note ? `Ghi chú: ${c.note}` : ""
+  ].filter(Boolean).join(", ");
+
+  const projCtx = proj ? [
+    `Dự án: ${proj.name} (${TYPE_MAP[proj.type]?.label||""})`,
+    proj.location    ? `Khu vực: ${proj.location}` : "",
+    proj.priceRange  ? `Giá: ${proj.priceRange}` : "",
+    proj.policy      ? `Chính sách: ${proj.policy}` : "",
+    proj.pitch       ? `Điểm mạnh: ${proj.pitch}` : "",
+    proj.amenities   ? `Tiện ích: ${proj.amenities}` : ""
+  ].filter(Boolean).join(". ") : "Chưa gắn dự án cụ thể.";
+
+  const prompt = `Bạn là chuyên gia telesale BĐS Việt Nam với 10 năm kinh nghiệm.
+
+THÔNG TIN KHÁCH HÀNG:
+${customerCtx}
+
+DỰ ÁN QUAN TÂM:
+${projCtx}
+
+LỊCH SỬ ${logs.length} CUỘC GỌI:
+${historyCtx}
+
+Hãy phân tích kỹ và đưa ra:
+
+1. 🔍 ĐÁNH GIÁ TÌNH TRẠNG
+Khách đang ở giai đoạn nào trong hành trình mua? Họ thực sự đang nghĩ gì?
+
+2. 🎯 LÝ DO THẬT SỰ CHƯA CHỐT
+Dựa vào lịch sử, lý do thật sự (không phải lý do họ nói) là gì?
+
+3. 💡 CHIẾN LƯỢC TÁI KÍCH HOẠT
+3 bước cụ thể để câu kéo lại khách này, phù hợp với tình huống thực tế.
+
+4. 📞 CÂU MỞ ĐẦU CUỘC GỌI TIẾP THEO
+Viết đúng 1 câu mở đầu tự nhiên, không sáo rỗng, dùng được ngay.
+
+5. ⚠️ ĐIỀU TUYỆT ĐỐI KHÔNG NÊN LÀM
+Với khách hàng cụ thể này, tránh điều gì.
+
+Trả lời tiếng Việt, thực chiến, cụ thể — không chung chung.`;
+
+  try {
+    const r = await fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":`Bearer ${GROQ_KEY}`},
+      body: JSON.stringify({
+        model:"llama-3.3-70b-versatile",
+        messages:[{role:"user",content:prompt}],
+        max_tokens:1200,
+        temperature:0.65
+      })
+    });
+    const d = await r.json();
+    if (d.error){res.textContent="Lỗi: "+d.error.message;return;}
+    res.textContent = d.choices?.[0]?.message?.content||"Không lấy được phân tích.";
+  } catch(e) { res.textContent="Lỗi kết nối. Kiểm tra API key và internet."; }
+};
 
 // ── DRAWER UTILS ──
 function openDrawer() { document.getElementById("overlay").classList.add("show"); }
